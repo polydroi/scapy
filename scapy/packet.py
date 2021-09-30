@@ -1151,6 +1151,8 @@ class Packet(six.with_metaclass(Packet_metaclass,  # type: ignore
                     else:
                         len2 += 1
                 length *= len2 or 1
+            elif isinstance(val, types.GeneratorType):
+                length *= SetGen(val).__iterlen__()
         if not isinstance(self.payload, NoPayload):
             return length * self.payload.__iterlen__()
         return length
